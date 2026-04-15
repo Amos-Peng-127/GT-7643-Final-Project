@@ -1,0 +1,6 @@
+# File Ext
+*.pth
+*.pdf
+*.xmind
+# Folder
+\data
