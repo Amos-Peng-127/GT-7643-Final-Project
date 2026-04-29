@@ -4,3 +4,7 @@
 *.xmind
 # Folder
 \data
+venv
+data_understanding
+.ipynb_checkpoints/
+*.pt
