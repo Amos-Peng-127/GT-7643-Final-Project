@@ -7,4 +7,6 @@
 venv
 data_understanding
 .ipynb_checkpoints/
+experiments
+figures
 *.pt
