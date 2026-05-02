@@ -9,8 +9,8 @@ protocol:
   val_ratio_within_train: 0.125
   top_k: 20
   relevance_threshold: 3.0
-  epochs: 50
-  patience: 5
+  epochs: 100
+  patience: 10
   early_stop_metric: NDCG@20
   force_retrain: false
 
@@ -35,15 +35,15 @@ models:
     batch_size: 1024
     reg_weight: 0.0001
   lightgcl:
-    name: emb128_l2_rank10_tau05_cl01
-    embedding_dim: 128
+    name: fixed_n2_r5_tau05_cl02
+    embedding_dim: 64
     n_layers: 2
-    svd_rank: 10
+    svd_rank: 5
     dropout: 0.0
-    lr: 0.0005
+    lr: 0.001
     batch_size: 2048
     tau: 0.5
-    lam_cl: 0.1
+    lam_cl: 0.2
     lam_reg: 0.0000001
   gatv2:
     name: emb128_l2_h4_lr5e-4_drop0
