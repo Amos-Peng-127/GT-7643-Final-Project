@@ -1,7 +1,7 @@
 dataset:
   name: Amazon Books
   ratings_path: data/ratings_Books.csv
-  k_core: 15
+  k_core: 30
 
 protocol:
   rating_filter: 3.0
@@ -9,61 +9,73 @@ protocol:
   val_ratio_within_train: 0.125
   top_k: 20
   relevance_threshold: 3.0
-  epochs: 50
-  patience: 5
+  eval_batch_size: 512
+  epochs: 100
+  patience: 10
   early_stop_metric: NDCG@20
-  force_retrain: false
+  force_retrain: true
 
 grid_search:
   enabled: false
-  max_trials_per_model: 10
+  max_trials_per_model: 5
   selection_metric: NDCG@20
 
 models:
   two_tower_bpr:
-    embedding_dim: 64
-    hidden_dims: [128, 64]
-    lr: 0.001
+    name: emb256_h512-256_lr5e-4_reg1e-4
+    embedding_dim: 256
+    hidden_dims: [512, 256]
+    lr: 0.0005
     batch_size: 1024
     reg_weight: 0.0001
+
   lightgcn_bpr:
-    embedding_dim: 64
-    n_layers: 3
+    name: emb128_l2_lr1e-3_reg1e-4
+    embedding_dim: 128
+    n_layers: 2
     lr: 0.001
     batch_size: 1024
     reg_weight: 0.0001
+
   lightgcl:
+    name: book_r100_cl002_lr5e-4
     embedding_dim: 64
     n_layers: 2
-    svd_rank: 5
+    svd_rank: 100
     dropout: 0.0
-    lr: 0.001
+    lr: 0.0005
     batch_size: 2048
     tau: 0.5
-    lam_cl: 0.2
+    lam_cl: 0.02
     lam_reg: 0.0000001
+
   gatv2:
-    embedding_dim: 64
+    name: emb128_l2_h4_lr1e-3_drop0
+    embedding_dim: 128
     n_layers: 2
     n_heads: 4
     dropout: 0.0
     lr: 0.001
     batch_size: 1024
     l2_reg: 0.0001
+
   graphsage:
+    name: emb256_h256_l2_drop01_lr5e-4
     embedding_dim: 256
     hidden_dim: 256
     n_layers: 2
-    dropout: 0.2
-    lr: 0.001
+    dropout: 0.1
+    lr: 0.0005
     batch_size: 1024
     reg_weight: 0.00001
+
   svd_graph_fusion:
-    latent_dim: 64
+    name: rank128_top20_w005_reg5e-4
+    latent_dim: 128
     lr: 0.0003
     batch_size: 1024
-    reg_weight: 0.0001
+    reg_weight: 0.0005
     variants:
-      - name: top10_w020
-        top_k_global: 10
-        global_weight_scale: 0.20
+      - name: rank128_top20_w005_reg5e-4
+        top_k_global: 20
+        global_weight_scale: 0.05
