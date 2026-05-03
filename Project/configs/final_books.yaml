@@ -70,12 +70,12 @@ models:
     reg_weight: 0.00001
 
   svd_graph_fusion:
-    name: rank128_top20_w005_reg5e-4
-    latent_dim: 128
-    lr: 0.0003
+    name: rank256_top100_w0075_lr125_reg5e-4
+    latent_dim: 256
+    lr: 0.00125
     batch_size: 1024
     reg_weight: 0.0005
     variants:
-      - name: rank128_top20_w005_reg5e-4
-        top_k_global: 20
-        global_weight_scale: 0.05
+      - name: rank256_top100_w0075_lr125_reg5e-4
+        top_k_global: 100
+        global_weight_scale: 0.075
